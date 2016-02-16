@@ -73,7 +73,7 @@ def get_jobinfo(url,token,jid):
     print html
 
 if __name__ == '__main__':
-    url = 'https://116.228.151.160:1238'
+    url = 'https://IP:PORT'
     args = sys.argv[:]
     if len(args) < 3:
         print 'input 2 arguments at least'
