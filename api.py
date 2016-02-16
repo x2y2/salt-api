@@ -73,7 +73,7 @@ def get_jobinfo(url,token,jid):
     print html
 
 if __name__ == '__main__':
-    url = 'https://IP:PORT'
+    url = 'https://172.17.162.230:8000'
     args = sys.argv[:]
     if len(args) < 3:
         print 'input 2 arguments at least'
@@ -81,6 +81,8 @@ if __name__ == '__main__':
     token = api_login(url)
     jid = get_jid(url,token,*args)
     if 'jetty.signal' in args and 'start' in args:
+        time.sleep(20)
+    elif 'state.sls' in args:
         time.sleep(20)
     else:
         time.sleep(2)
