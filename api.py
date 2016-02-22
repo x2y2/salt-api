@@ -56,15 +56,15 @@ def get_jid(url,token,*args):
 
 def get_jobinfo(url,token,jid):
     ch = pycurl.Curl()
-    ch.setopt(ch.URL,url)
+    ch.setopt(ch.URL,url+'/jobs/{0}'.format(jid))
     info = StringIO.StringIO()
     ch.setopt(ch.WRITEFUNCTION,info.write)
-    ch.setopt(ch.POST,True)
+    ch.setopt(ch.HTTPGET,True)
     ch.setopt(ch.SSL_VERIFYPEER,0)
     ch.setopt(ch.SSL_VERIFYHOST,0)
     ch.setopt(ch.HTTPHEADER,['Accept: application/x-yaml','X-Auth-Token: {0}'.format(token)])
-    data = 'client=runner&fun=jobs.lookup_jid&jid={0}'.format(jid)
-    ch.setopt(ch.POSTFIELDS,data)
+    #data = 'client=runner&fun=jobs.lookup_jid&jid={0}'.format(jid)
+    #ch.setopt(ch.POSTFIELDS,data)
     ch.setopt(ch.HEADER,False)
     ch.perform()
     html = info.getvalue()
@@ -73,7 +73,7 @@ def get_jobinfo(url,token,jid):
     print html
 
 if __name__ == '__main__':
-    url = 'https://172.17.162.230:8000'
+    url = 'https://116.228.151.160:1238'
     args = sys.argv[:]
     if len(args) < 3:
         print 'input 2 arguments at least'
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     token = api_login(url)
     jid = get_jid(url,token,*args)
     if 'jetty.signal' in args and 'start' in args:
-        time.sleep(20)
+        time.sleep(30)
     elif 'state.sls' in args:
         time.sleep(20)
     else:
